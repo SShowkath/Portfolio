@@ -14,7 +14,7 @@ export default function Hero() {
                     </div>                
                 </div>
                 <div className="HeroImage">
-                    <img className="pfp" src='../public/PFP.jpg' alt="Profile picture"/>
+                    <img className="pfp" src='./public/PFP.jpg' alt="Profile picture"/>
                 </div>
             </div>
             <div className="HeroSubtitle">

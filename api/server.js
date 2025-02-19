@@ -9,6 +9,8 @@ const port = 3001;
 
 app.use(cors());
 
+
+
 async function fetchLetterboxdPage(url) {
     const parsedUrl = parse(url);
     
