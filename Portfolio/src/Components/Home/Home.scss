@@ -1,0 +1,100 @@
+.GlobalHome {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  margin-bottom: 0%;
+  overflow-y: auto;
+  background-color: eggshell;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0.5rem;
+    height: 35.5vh; 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // margin: 0;
+    overflow-y: visible;
+    z-index: 1000;
+  }
+}
+
+.HomeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  max-width: 1200px;
+  margin: auto;
+  margin-left: 10%;
+  margin-top: 0%;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    gap: 1vh; 
+    margin-top: 5vh;
+  }
+}
+
+.MediaSection {
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #192a51;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #192A51;
+    width: fit-content;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.MediaGrid {
+  display: grid;
+  width: 100%;
+
+  &.movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(7.5vw, 1fr));
+    gap: 1rem;
+  }
+
+  &.books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(7.5vw, 1fr));
+    gap: 1rem; 
+  }
+
+  .movie-card, .book-card {
+    aspect-ratio: 2/3;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 8px;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 0.3rem; 
+    padding: 0 0.5rem; 
+    
+    &.movies-grid, &.books-grid {
+      grid-template-columns: repeat(auto-fit, minmax(2.5px, 1fr));
+    }
+  }
+}
