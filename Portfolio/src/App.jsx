@@ -23,7 +23,7 @@ const LoadingScreen = () => {
   return (
     <div className="LoadingScreen">
       <motion.img 
-        src="/pokemon.gif" 
+        src="../public/pokemon.gif" 
         alt="Loading Pokemon"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
