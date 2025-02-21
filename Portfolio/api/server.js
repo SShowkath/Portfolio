@@ -59,9 +59,9 @@ async function fetchMoviePoster(title) {
 
         const response = await fetch(url, {
             headers: {
-              'Authorization': 'Bearer ' + token
-            }
-          });
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzODQ3MDg3MDBkMzU2ZDJlNjNmMzNlZGRiOTRjZjFmZCIsIm5iZiI6MTczOTgxNzI1My44MzAwMDAyLCJzdWIiOiI2N2IzODEyNWFhYWMzYjE2NzRlMGYzMWMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.X1HMyYgBbSdf3y5D94CXIGrWeQ0xQlOp5n8f1WcjMRM'
+              }
+            });
         const data = await response.json();
         return data.results?.[0]?.poster_path ? `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}` : null;
     } catch (error) {
