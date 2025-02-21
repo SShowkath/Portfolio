@@ -19,19 +19,23 @@ export default function Home() {
     }
 
     Promise.all([
-      fetch("https://portfoliobackend-uwr7.onrender.com/api/movies")
+      fetch("http://localhost:3001/api/movies")
         .then((response) => response.json())
         .then((data) => data.movies || []), 
 
-      fetch("https://portfoliobackend-uwr7.onrender.com/api/books")
+      fetch("http://localhost:3001/api/books")
         .then((response) => response.json())
         .then((data) => data.books || []), 
     ])
     .then(([moviesData, booksData]) => {
+      console.log("Movies data inside component:", moviesData);
+
+
       sessionStorage.setItem("movies", JSON.stringify(moviesData));
       sessionStorage.setItem("books", JSON.stringify(booksData));
 
       setMovies(moviesData);
+  
       setBooks(booksData);
       setLoading(false);
     })
@@ -57,30 +61,34 @@ export default function Home() {
             {error && <p className="error">Error: {error}</p>}
             {!loading &&
               !error &&
-              movies.map((movie, index) => (
-                <div
-                  key={index}
-                  className="movie-card"
-                  onClick={() => handleMovieClick(movie.url)}
-                >
-                  {movie.posterUrl ? (
-                    <img
-                      src={movie.posterUrl}
-                      alt={movie.title}
-                      className="movie-poster"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/placeholder-image.jpg";
-                      }}
-                    />
-                  ) : (
-                    <div className="poster-placeholder">{movie.title}</div>
-                  )}
-                </div>
-              ))}
+              movies.map((movie, index) => {
+                // console.log(movie); // Log the movie poster URL
+  
+                return (
+                  <div
+                    key={index}
+                    className="movie-card"
+                    onClick={() => handleMovieClick(movie.url)}
+                  >
+                    {movie.posterUrl ? (
+                      <img
+                        src={movie.posterUrl}
+                        alt={movie.title}
+                        className="movie-poster"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/placeholder-image.jpg";
+                        }}
+                      />
+                    ) : (
+                      <div className="poster-placeholder">{movie.title}</div>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         </div>
-
+  
         <div className="MediaSection">
           <h2>Currently Reading</h2>
           <div className="MediaGrid books-grid">
@@ -105,4 +113,5 @@ export default function Home() {
       </div>
     </div>
   );
+  
 }

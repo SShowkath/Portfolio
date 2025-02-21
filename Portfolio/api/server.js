@@ -52,10 +52,16 @@ function extractBookImages(html) {
 }
 
 async function fetchMoviePoster(title) {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}&include_adult=false&api_key=${TMDB_API_KEY}`;
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}&include_adult=false`;
     
     try {
-        const response = await fetch(url);
+        const token = 'eyJhbGciOiJIUzI1NiJ9.' + TMDB_API_KEY;
+
+        const response = await fetch(url, {
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+          });
         const data = await response.json();
         return data.results?.[0]?.poster_path ? `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}` : null;
     } catch (error) {
@@ -75,9 +81,10 @@ async function updateData() {
         let movies = extractMovieTitles(letterboxdHtml);
         const books = extractBookImages(storygraphHtml);
 
-        // Fetch posters in parallel
+        
         const moviePromises = movies.map(async (movie) => {
             movie.posterUrl = await fetchMoviePoster(movie.title);
+            
             return movie;
         });
 
@@ -89,12 +96,13 @@ async function updateData() {
     }
 }
 
-// Initial fetch and periodic updates every 6 hours
+
 updateData();
 setInterval(updateData, 6 * 60 * 60 * 1000);
 
 // API Endpoints
 app.get('/api/movies', (req, res) => {
+    console.log("Sending movies data:", cachedMovies);
     res.json({ movies: cachedMovies });
 });
 
