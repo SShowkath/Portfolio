@@ -19,11 +19,11 @@ export default function Home() {
     }
 
     Promise.all([
-      fetch("http://localhost:3001/api/movies")
+      fetch("https://portfoliobackend-uwr7.onrender.com/api/movies")
         .then((response) => response.json())
         .then((data) => data.movies || []), 
 
-      fetch("http://localhost:3001/api/books")
+      fetch("https://portfoliobackend-uwr7.onrender.com/api/books")
         .then((response) => response.json())
         .then((data) => data.books || []), 
     ])
