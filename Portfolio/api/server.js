@@ -177,10 +177,8 @@ async function updateData() {
     }
 }
 
-// Fetch data on startup
 updateData();
 
-// Refresh data every 6 hours
 setInterval(updateData, 6 * 60 * 60 * 1000);
 
 // API Endpoints
