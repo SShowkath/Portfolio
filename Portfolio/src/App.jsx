@@ -10,7 +10,7 @@ const LoadingScreen = () => {
 
   useEffect(() => {
     const controls = animate(progress, 100, {
-      duration: 2.75,
+      duration: 3.25,
       ease: [0.4, 0, 0.2, 1], 
       onComplete: () => {
         progress.set(100);
@@ -58,7 +58,7 @@ const App = () => {
     
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2750);
+    }, 3250);
 
     return () => {
       clearTimeout(timer);

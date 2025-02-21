@@ -81,15 +81,16 @@ async function updateData() {
         let movies = extractMovieTitles(letterboxdHtml);
         const books = extractBookImages(storygraphHtml);
 
-        
         const moviePromises = movies.map(async (movie) => {
             movie.posterUrl = await fetchMoviePoster(movie.title);
-            
             return movie;
         });
 
         cachedMovies = await Promise.all(moviePromises);
         cachedBooks = books;
+
+        console.log("New movies and books data cached at", new Date().toISOString());
+        console.log("Movies:", cachedMovies.length, "Books:", cachedBooks.length);
 
     } catch (error) {
         console.error("Error updating data:", error);
