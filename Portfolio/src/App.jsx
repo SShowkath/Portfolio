@@ -10,8 +10,8 @@ const LoadingScreen = () => {
 
   useEffect(() => {
     const controls = animate(progress, 100, {
-      duration: 3.25,
-      ease: [0.4, 0, 0.2, 1], 
+      duration: 2,
+      ease: [0.4, 0, 0.2, 1],
       onComplete: () => {
         progress.set(100);
       }
@@ -58,7 +58,7 @@ const App = () => {
     
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3250);
+    }, 2000);
 
     return () => {
       clearTimeout(timer);
@@ -83,6 +83,11 @@ const App = () => {
         >
           {isDesktop ? <NavBar /> : <MobileNav />}
         </motion.div>
+      )}
+      {isLoading && (
+        <div className="BackgroundNav">
+          {isDesktop ? <NavBar /> : <MobileNav />}
+        </div>
       )}
     </motion.div>
   );
