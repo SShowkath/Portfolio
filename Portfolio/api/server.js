@@ -5,12 +5,14 @@ import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3001;
+require("dotenv").config();
 
 app.use(cors());
 
 let cachedMovies = [];
 let cachedBooks = [];
-const TMDB_API_KEY = "YOUR_TMDB_API_KEY"; // Replace with your actual API key
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+
 
 async function fetchPage(url) {
     return new Promise((resolve, reject) => {
