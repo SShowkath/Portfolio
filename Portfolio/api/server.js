@@ -5,8 +5,7 @@ import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3001;
-require("dotenv").config();
-
+import 'dotenv/config';
 app.use(cors());
 
 let cachedMovies = [];
