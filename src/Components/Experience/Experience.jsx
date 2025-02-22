@@ -17,7 +17,7 @@ const experiences = [
   {
     title: 'Cornell University',
     date: 'Jan - Dec 2024',
-    description: 'Continued education to get my Masters of Engineering in Computer Science at Cornell University.',
+    description: 'Continued education to get my Masters of Engineering in Computer Science at Cornell University',
     img: "./cornell.png"
   },
   {
@@ -29,19 +29,19 @@ const experiences = [
   {
     title: 'JP Morgan Chase',
     date: 'Summer 2023',
-    description: "SWE intern on the Global Banking Platform team, where I designed and built a TerraForm lifecycle management application to streamline infrastructure provisioning.",
+    description: "SWE intern on the Global Banking Platform team, where I designed and built a TerraForm lifecycle management application to streamline infrastructure provisioning",
     img: "./JP_Morgan_logo.png"
   },
   {
     title: 'ACM UT Dallas',
     date: 'Jan - May 2023',
-    description: 'Conducted research under Dr. Katherine Brown on using CV models to pinpoint and effectively diagnose cardiothoracic diseases based on chest scans.',
+    description: 'Conducted research under Dr. Katherine Brown on using CV models to pinpoint and effectively diagnose cardiothoracic diseases based on chest scans',
     img: "./acm.jpg"
   },
   {
     title: 'COINS Lab',
     date: 'May - Dec 2022',
-    description: 'Research Assistant for Dr. Richard Golden, where I developed cognitive diagnostic models using Bayesian ML to assess a student\'s skills via an intelligent GUI for skill assignment and interrelation analysis.',
+    description: 'Research Assistant for Dr. Richard Golden, where I developed cognitive diagnostic models using Bayesian ML to assess a student\'s skills via an intelligent GUI for skill assignment and interrelation analysis',
     img: "./coins.png"
   },
   {
