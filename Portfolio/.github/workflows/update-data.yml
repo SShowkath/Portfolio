@@ -1,0 +1,21 @@
+name: Scheduled Data Update
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # Runs every 6 hours
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Call Render Server to Update Data
+        run: |
+          curl -X GET https://your-render-app.onrender.com/api/trigger-update
