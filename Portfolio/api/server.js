@@ -1,5 +1,5 @@
 import express from 'express';
-import https from 'https';
+    import https from 'https';
 import { JSDOM } from 'jsdom';
 import cors from 'cors';
 
@@ -55,7 +55,7 @@ async function fetchMoviePoster(title) {
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}&include_adult=false`;
     
     try {
-        const token = 'eyJhbGciOiJIUzI1NiJ9.' + TMDB_API_KEY;
+        const token = `Bearer ${TMDB_API_KEY}`;
 
         const response = await fetch(url, {
             headers: {
@@ -101,7 +101,6 @@ async function updateData() {
 updateData();
 setInterval(updateData, 6 * 60 * 60 * 1000);
 
-// API Endpoints
 app.get('/api/movies', (req, res) => {
     console.log("Sending movies data:", cachedMovies);
     res.json({ movies: cachedMovies });
@@ -113,4 +112,9 @@ app.get('/api/books', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
+});
+
+app.get('/api/trigger-update', async (req, res) => {
+    await updateData();
+    res.json({ message: "Data updated" });
 });
