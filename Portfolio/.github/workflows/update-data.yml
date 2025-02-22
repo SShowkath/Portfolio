@@ -2,8 +2,8 @@ name: Scheduled Data Update
 
 on:
   schedule:
-    - cron: "0 */6 * * *"  # Runs every 6 hours
-  workflow_dispatch:  # Allows manual triggering
+    - cron: "0 */6 * * *"  
+  workflow_dispatch:  
 
 jobs:
   update:
@@ -18,4 +18,4 @@ jobs:
 
       - name: Call Render Server to Update Data
         run: |
-          curl -X GET https://your-render-app.onrender.com/api/trigger-update
+          curl -X GET https://portfoliobackend-uwr7.onrender.com//api/trigger-update

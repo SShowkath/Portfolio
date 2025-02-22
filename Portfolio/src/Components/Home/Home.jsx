@@ -62,7 +62,6 @@ export default function Home() {
             {!loading &&
               !error &&
               movies.map((movie, index) => {
-                // console.log(movie); // Log the movie poster URL
   
                 return (
                   <div
