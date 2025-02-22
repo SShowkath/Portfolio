@@ -118,6 +118,7 @@ app.get('/api/trigger-update', async (req, res) => {
     try {
         await updateData();
         res.json({ message: "Data updated successfully" });
+        console.log("success")
     } catch (error) {
         console.error("Cron job update failed:", error);
         res.status(500).json({ message: "Update failed" });
