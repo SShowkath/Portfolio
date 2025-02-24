@@ -15,7 +15,7 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
-app.use(express.static(path.join(__dirname, "public")));
+
 
 async function fetchPage(url) {
     return new Promise((resolve, reject) => {
@@ -63,12 +63,12 @@ async function fetchMoviePoster(title) {
 
     try {
         const token = `Bearer ${TMDB_API_KEY}`;
+
         const response = await fetch(url, {
             headers: {
-                'Authorization': token
-            }
-        });
-
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzODQ3MDg3MDBkMzU2ZDJlNjNmMzNlZGRiOTRjZjFmZCIsIm5iZiI6MTczOTgxNzI1My44MzAwMDAyLCJzdWIiOiI2N2IzODEyNWFhYWMzYjE2NzRlMGYzMWMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.X1HMyYgBbSdf3y5D94CXIGrWeQ0xQlOp5n8f1WcjMRM'
+              }
+            });
         const data = await response.json();
         return data.results?.[0]?.poster_path ? `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}` : null;
     } catch (error) {
