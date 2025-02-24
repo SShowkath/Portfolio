@@ -1,8 +1,6 @@
 import express from 'express';
     import https from 'https';
 import { JSDOM } from 'jsdom';
-import { SitemapStream, streamToPromise } from "sitemap";
-import { Readable } from "stream";
 import cors from 'cors';
 
 const app = express();
@@ -14,20 +12,7 @@ let cachedMovies = [];
 let cachedBooks = [];
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
-export default async function handler(req, res) {
-    const links = [
-      { url: "/", changefreq: "daily", priority: 1.0 }
-    ];
-  
-    const stream = new SitemapStream({ hostname: "https://theshahrukh.vercel.app" });
-  
-    res.setHeader("Content-Type", "application/xml");
-    const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
-      data.toString()
-    );
-  
-    res.send(xml);
-  }
+
 
 async function fetchPage(url) {
     return new Promise((resolve, reject) => {
@@ -129,6 +114,10 @@ app.get('/api/books', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+app.get("/sitemap.xml", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+  });
 
 app.get('/api/trigger-update', async (req, res) => {
     try {
