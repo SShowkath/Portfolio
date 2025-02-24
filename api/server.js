@@ -114,6 +114,26 @@ app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
 
+app.get('./sitemap.xml', (req, res) => {
+    res.header('Content-Type', 'application/xml');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+      <loc>https://theshahrukh.vercel.app/</loc>
+      <lastmod>2025-02-24</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+    </url>
+  </urlset>`);
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send(`User-agent: *
+  Allow: /
+  Sitemap: https://theshahrukh.vercel.app/sitemap.xml`);
+  });
+
 app.get('/api/trigger-update', async (req, res) => {
     try {
         await updateData();
