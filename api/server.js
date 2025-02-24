@@ -1,28 +1,21 @@
 import express from 'express';
-import https from 'https';
-import path from 'path';
+    import https from 'https';
 import { JSDOM } from 'jsdom';
 import cors from 'cors';
-import 'dotenv/config';
 
 const app = express();
 const port = process.env.PORT || 3001;
+import 'dotenv/config';
 app.use(cors());
 
 let cachedMovies = [];
 let cachedBooks = [];
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
-const __dirname = new URL('.', import.meta.url).pathname;
-
-
 
 async function fetchPage(url) {
     return new Promise((resolve, reject) => {
         https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
-            if (res.statusCode !== 200) {
-                reject(new Error(`Failed to fetch page: ${res.statusCode}`));
-            }
             let data = '';
             res.on('data', chunk => data += chunk);
             res.on('end', () => resolve(data));
@@ -33,7 +26,7 @@ async function fetchPage(url) {
 function extractMovieTitles(html) {
     const dom = new JSDOM(html);
     const document = dom.window.document;
-
+    
     const posters = document.querySelectorAll('li.poster-container.viewing-poster-container[data-owner="shahrukh0"]');
     return Array.from(posters).map(poster => {
         const img = poster.querySelector('img');
@@ -60,7 +53,7 @@ function extractBookImages(html) {
 
 async function fetchMoviePoster(title) {
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}&include_adult=false`;
-
+    
     try {
         const token = `Bearer ${TMDB_API_KEY}`;
 
@@ -104,6 +97,7 @@ async function updateData() {
     }
 }
 
+
 updateData();
 setInterval(updateData, 6 * 60 * 60 * 1000);
 
@@ -120,17 +114,14 @@ app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
 
-app.get("/sitemap.xml", (req, res) => {
-    res.sendFile(path.join(__dirname, "../sitemap.xml"));
-});
-
 app.get('/api/trigger-update', async (req, res) => {
     try {
         await updateData();
         res.json({ message: "Data updated successfully" });
-        console.log("success");
+        console.log("success")
     } catch (error) {
         console.error("Cron job update failed:", error);
         res.status(500).json({ message: "Update failed" });
     }
 });
+
