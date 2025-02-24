@@ -2,7 +2,7 @@ import express from 'express';
     import https from 'https';
 import { JSDOM } from 'jsdom';
 import cors from 'cors';
-
+import path from 'path';
 const app = express();
 const port = process.env.PORT || 3001;
 import 'dotenv/config';
@@ -12,6 +12,7 @@ let cachedMovies = [];
 let cachedBooks = [];
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
+app.use(express.static(path.join(__dirname, "public")));
 
 
 async function fetchPage(url) {
@@ -116,7 +117,7 @@ app.listen(port, () => {
 });
 
 app.get("/sitemap.xml", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+    res.sendFile(path.join(__dirname, "public", "../sitemap.xml"));
   });
 
 app.get('/api/trigger-update', async (req, res) => {
