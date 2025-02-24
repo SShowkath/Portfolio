@@ -114,7 +114,7 @@ app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
 
-app.get('./sitemap.xml', (req, res) => {
+app.get('/sitemap.xml', (req, res) => {
     res.header('Content-Type', 'application/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
