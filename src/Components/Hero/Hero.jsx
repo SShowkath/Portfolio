@@ -1,5 +1,5 @@
 import React from "react";
-import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaEnvelope, FaFile} from "react-icons/fa";
 
 import "./Hero.scss";
 
@@ -38,6 +38,14 @@ export default function Hero() {
                     <a href="mailto:shahrukhshowkath@gmail.com">
                     <FaEnvelope className="icon" />
                     </a>
+                    <a
+                        href="https://drive.google.com/file/d/1KhGCzDHHaT6Kr45aWciYDZaLF4AX3BQT/view?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >
+                        <FaFile className="icon" />
+                    </a>
+
                 </div>
                 <div className="Pokemon">
                     <img src="./gengar.gif" alt="Gengar" />
