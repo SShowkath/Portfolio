@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /private/
 Allow: /public/
 Sitemap: https://theshahrukh.vercel.app/sitemap.xml
