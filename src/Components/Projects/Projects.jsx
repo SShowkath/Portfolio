@@ -53,7 +53,7 @@ const Projects = () => {
         />  
       </div>
       <div className="project-content">
-        <h3 ><a href={project.link}>{project.title}</a></h3>
+      <h3><a href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a></h3>
     
         <p>{project.description}</p>
         <div className="icon-container">
