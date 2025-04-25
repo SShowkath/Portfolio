@@ -1,6 +1,6 @@
 import express from 'express';
     import https from 'https';
-import { JSDOM } from 'jsdom';
+// import { JSDOM } from 'jsdom';
 import cors from 'cors';
 
 const app = express();
@@ -11,6 +11,19 @@ app.use(cors());
 let cachedMovies = [];
 let cachedBooks = [];
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
+
+
+let JSDOM;
+if (typeof window === 'undefined') {
+  try {
+    
+    const jsdomModule = await import('jsdom');
+    JSDOM = jsdomModule.JSDOM;
+  } catch (e) {
+    console.error("JSDOM could not be imported. Ensure 'jsdom' is installed if running in Node.js.", e);
+    
+  }
+}
 
 
 async function fetchPage(url) {
@@ -38,18 +51,57 @@ function extractMovieTitles(html) {
     }).filter(movie => movie.title);
 }
 
+// Assuming JSDOM is available if running in a Node.js environment
+// const { JSDOM } = require('jsdom'); // Example if in Node.js
+
 function extractBookImages(html) {
-    const dom = new JSDOM(html);
-    const document = dom.window.document;
+    let document;
+    const imageUrlPrefix = "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books";
 
-    const bookElements = document.querySelectorAll('img.rounded-sm.shadow-lg.dark\\:shadow-darkerGrey\\/40');
-    const seenUrls = new Set();
+    // Environment check for DOM parsing
+    if (typeof window === 'undefined' && typeof JSDOM !== 'undefined') {
+        // Node.js environment with JSDOM
+        try {
+            const dom = new JSDOM(html);
+            document = dom.window.document;
+        } catch (e) {
+            console.error("Error initializing JSDOM:", e);
+            return [];
+        }
+    } else if (typeof window !== 'undefined' && window.DOMParser) {
+        // Browser environment
+        const parser = new window.DOMParser();
+        document = parser.parseFromString(html, 'text/html');
+    } else {
+        console.error("Unsupported environment: No DOM parser available.");
+        return [];
+    }
 
-    return Array.from(bookElements)
-        .map(img => img.src)
-        .filter(url => url && !seenUrls.has(url) && seenUrls.add(url))
-        .map(imageUrl => ({ imageUrl }));
+    const allImages = document.querySelectorAll('img');
+    const matchingImageUrls = new Set(); // Use a Set to automatically handle duplicates
+
+    allImages.forEach(img => {
+        const src = img.getAttribute('src');
+        // Check if src exists and starts with the desired prefix
+        if (src && src.startsWith(imageUrlPrefix)) {
+            matchingImageUrls.add(src);
+        }
+    });
+
+    // --- Added Regex Transformation ---
+    // Define the regex to find the pattern like ._SY75_ or ._SX50_
+    const regex = /\._[A-Z]{2}\d{2}_/;
+
+    // Convert the Set to an array, map over it, and apply the regex replacement
+    const result = Array.from(matchingImageUrls).map(url => {
+        // Replace the matched pattern (e.g., ._SY75_) with an empty string
+        const cleanedUrl = url.replace(regex, '');
+        // Return the object in the desired format { imageUrl: '...' }
+        return { imageUrl: cleanedUrl };
+    });
+    return result;
 }
+  
 
 async function fetchMoviePoster(title) {
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}&include_adult=false`;
@@ -75,7 +127,7 @@ async function updateData() {
         console.log("Fetching latest movies and books...");
         const [letterboxdHtml, storygraphHtml] = await Promise.all([
             fetchPage('https://letterboxd.com/shahrukh0/'),
-            fetchPage('https://app.thestorygraph.com/currently-reading/chefboyardee42')
+            fetchPage('https://www.goodreads.com/review/list/187816498-sho?ref=nav_mybooks&shelf=currently-reading')
         ]);
 
         let movies = extractMovieTitles(letterboxdHtml);
