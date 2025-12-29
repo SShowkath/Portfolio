@@ -54,27 +54,25 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <div className="experience-section">
-
-      <div className="experience-section__list">
+    <section className="experience">
+      <h2 className="experience-title">Experience</h2>
+      <div className="experience-timeline">
         {experiences.map((exp, index) => (
-          <div key={index} className="experience-section__card">
-            <div className="card-content">
-              <div className="image-container">
-                <img src={exp.img} alt={exp.title} />
+          <div key={index} className="experience-item">
+            <div className="experience-icon">
+              <img src={exp.img} alt={exp.title} />
+            </div>
+            <div className="experience-content">
+              <div className="experience-header">
+                <h3>{exp.title}</h3>
+                <span className="experience-date">{exp.date}</span>
               </div>
-              <div className="details">
-                <div className="header">
-                  <h2 className="title">{exp.title}</h2>
-                  <span className="date">{exp.date}</span>
-                </div>
-                <p className="description">{exp.description}</p>
-              </div>
+              <p className="experience-description">{exp.description}</p>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
