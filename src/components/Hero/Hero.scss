@@ -129,11 +129,14 @@
       .icons-group {
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 1.5rem;
 
         a {
           color: #ef8354;
           transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
           
           .icon {
             font-size: 1.8rem;
@@ -149,6 +152,32 @@
           }
         }
       }
+    }
+  }
+  .gengar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.8rem; // Match the icon font-size for alignment
+    
+    @media (max-width: 768px) {
+      height: 1.5rem;
+    }
+    
+    img {
+      width: 3rem;
+      height: 3rem;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      
+      @media (max-width: 768px) {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+    
+    &:hover img {
+      transform: scale(1.2);
     }
   }
 }

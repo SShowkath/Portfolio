@@ -38,6 +38,9 @@ const Hero = () => {
             >
               <FaFile className="icon" />
             </a>
+            <div className="gengar-icon">
+              <img src="/gengar.gif" alt="Gengar" />
+            </div>
           </div>
         </div>
       </div>

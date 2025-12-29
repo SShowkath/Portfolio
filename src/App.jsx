@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="App">
       <Particles 
-        particleCount={450}
+        particleCount={550}
         particleSpread={15}
         speed={0.04}
         particleColors={['#8fa3b8', '#9ba3b4', '#bfc5d1']}
